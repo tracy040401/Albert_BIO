@@ -36,8 +36,6 @@ def main():
         entree.append(v)
     print(entree[0][0])
 
-
-
     # Création du vecteur de sortie 
     sortie = []
 
