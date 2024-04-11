@@ -22,15 +22,10 @@ def pad_sentences_from_file(input_file, SIZE):
     sentences = []
     with open(input_file, "r", encoding="utf-8") as file:
         current_sentence = []
-        i = 0 
         for line in file:
-            if line.strip() and i < 3 :  # Si la ligne n'est pas vide
-                print(line)
+            if line.strip():  # Si la ligne n'est pas vide
                 word = line.strip().split()[0]  # Prenez le premier élément de la ligne
-                print("word : ", word)
                 current_sentence.append(word)  # Ajoutez-le à la phrase actuelle
-                print(current_sentence)
-                i+=1
             else:
                 if current_sentence:  # Si la phrase actuelle n'est pas vide
                     sentences.append(current_sentence)  # Ajoutez-la à la liste des phrases
@@ -46,24 +41,6 @@ def pad_sentences_from_file(input_file, SIZE):
         padded_vectors.append(padded_sentence)
     
     return padded_vectors
-
-def main():
-    with open("train_corpus", "r", encoding="utf-8") as file:
-        data = file.readlines()
-
-    # Appel de la fonction pour compter les exemples et trouver la taille maximale
-    num_examples, max_length = count_examples_and_max_length(data)
-
-    # Affichage des résultats
-    print("Nombre d'exemples :", num_examples) 
-    print("Taille maximale de la phrase :", max_length)
-
-    vec = pad_sentences_from_file("train_corpus", max_length)
-    print("vecteur : ", vec[0])
-
-
-if __name__ == "__main__":
-    main()
 
 '''
 dans train_corpus : 
