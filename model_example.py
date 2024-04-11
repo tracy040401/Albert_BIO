@@ -7,7 +7,11 @@ import label
 # Définir les constantes ou configurations nécessaires
 MAX_SEQ_SIZE = 92  # Taille maximale de la séquence
 tailleDictionnaire = emb_spacy.get_size_dict()  # Taille du dictionnaire de mots
-config = ...  # Configuration du modèle (hidden size, etc.)
+config = { # config du modele
+    'hidden_size': 128,  # Taille de la couche cachée du RNN
+    'dropout_rate': 0.5,  # Taux de dropout pour régulariser le modèle
+    'nb_labels': 10  # Nombre de labels de sortie
+}
 nbLabels = len(label.extract_label("atis.train"))  # Nombre d'étiquettes potentielles
 
 # Lire le fichier texte "atis.train" pour obtenir les données d'entraînement prétraitées
@@ -18,7 +22,7 @@ def lire_fichier_texte(chemin_fichier):
             mots = ligne.strip().split('\t')
             if len(mots) == 2:
                 mot = mots[0]  # Sélectionner le premier mot
-                représentation_mot = get_embedding(mot)  # Obtenir la représentation du mot
+                représentation_mot = emb_spacy.get_embedding(mot)  # Obtenir la représentation du mot
                 donnees_train.append(représentation_mot)
     return np.array(donnees_train)
 
