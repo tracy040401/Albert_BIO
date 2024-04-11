@@ -1,12 +1,14 @@
 from tensorflow.keras.layers import Input, Embedding, LSTM, Dropout, TimeDistributed, Dense
 from tensorflow.keras.models import Model
 import numpy as np
+import emb_spacy
+import label
 
 # Définir les constantes ou configurations nécessaires
-MAX_SEQ_SIZE = ...  # Taille maximale de la séquence
-tailleDictionnaire = ...  # Taille du dictionnaire de mots
+MAX_SEQ_SIZE = 92  # Taille maximale de la séquence
+tailleDictionnaire = emb_spacy.get_size_dict()  # Taille du dictionnaire de mots
 config = ...  # Configuration du modèle (hidden size, etc.)
-nbLabels = ...  # Nombre d'étiquettes potentielles
+nbLabels = len(label.extract_label("atis.train"))  # Nombre d'étiquettes potentielles
 
 # Lire le fichier texte "atis.train" pour obtenir les données d'entraînement prétraitées
 def lire_fichier_texte(chemin_fichier):

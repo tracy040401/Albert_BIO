@@ -8,6 +8,10 @@ def get_embedding(mot):
     embedding = nlp.vocab[mot].vector
     return embedding
 
+def get_size_dict():
+    return len(nlp.vocab.strings)
+
+print(get_size_dict())
 
 #####  POUR POUVOIR UTILISER SPACY IL FAUT D'ABORD L'INSTALLER  #####
 # $ pip install spacy
