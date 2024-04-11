@@ -21,11 +21,3 @@ def get_vector_from_label(label):
             vector.append("0")
         i+=1
     return vector
-
-
-if __name__ == "__main__":    
-    etiquettes = extract_label("atis.train")
-    print("Etiquettes : ", etiquettes)
-    print("Nombre d'étiquettes : ", len(etiquettes))
-    print("vecteur de O : ", get_vector_from_label("O"))
-    print("vecteur de B-flight_time : ", get_vector_from_label("B-flight_time"))
