@@ -5,23 +5,26 @@ from input import count_examples_and_max_length, pad_sentences_from_file
 
 
 def main():
+    # Ouverture en lecture des données
     with open("train_corpus", "r", encoding="utf-8") as file:
         data = file.readlines()
 
-    # Appel de la fonction pour compter les exemples et trouver la taille maximale
+    # Compter les exemples et trouver la taille maximale
     num_examples, max_length = count_examples_and_max_length(data)
 
     # Affichage des résultats
     print("Nombre d'exemples :", num_examples) 
     print("Taille maximale de la phrase :", max_length)
 
-    vec = pad_sentences_from_file("train_corpus", max_length)
-    print("vecteur : ", vec[0])
+    vec_word, vec_label = pad_sentences_from_file("train_corpus", max_length)
+    #print("vecteur : ", vec_label[0])
 
-    vector = []
+
+    # Création du vecteur d'entrée 
+    entree = []
     v = []
     i = 0 
-    for sentence in vec:
+    for sentence in vec_word:
         for word in sentence:
             i+=1
             if word:
@@ -30,8 +33,14 @@ def main():
                 zero = [0] * max_length
                 v.append(zero)
             print(i, "/", max_length*num_examples)
-        vector.append(v)
-    print(vector[0][0])
+        entree.append(v)
+    print(entree[0][0])
+
+
+
+    # Création du vecteur de sortie 
+    sortie = []
+
 
 
 

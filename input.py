@@ -20,27 +20,41 @@ def count_examples_and_max_length(data):
 
 def pad_sentences_from_file(input_file, SIZE):
     sentences = []
+    labels = []
     with open(input_file, "r", encoding="utf-8") as file:
         current_sentence = []
+        current_sentence_label = []
         for line in file:
             if line.strip():  # Si la ligne n'est pas vide
-                word = line.strip().split()[0]  # Prenez le premier élément de la ligne
-                current_sentence.append(word)  # Ajoutez-le à la phrase actuelle
+                word = line.strip().split()[0]  # Prend le premier élément de la ligne
+                label = line.strip().split()[1] # Prend le deuxième élt de la ligne
+                current_sentence.append(word)  # Ajout à la phrase actuelle
+                current_sentence_label.append(label) # Ajout du label à la phrase 
             else:
                 if current_sentence:  # Si la phrase actuelle n'est pas vide
-                    sentences.append(current_sentence)  # Ajoutez-la à la liste des phrases
-                    current_sentence = []  # Réinitialisez la phrase actuelle
+                    sentences.append(current_sentence)  # Ajout à la liste des phrases
+                    labels.append(current_sentence_label)
+                    current_sentence = []  # Réinit la phrase/label actuelle
+                    current_sentence_label = []
 
-        # Assurez-vous de traiter la dernière phrase si elle n'est pas suivie d'une ligne vide
         if current_sentence:
             sentences.append(current_sentence)
 
-    padded_vectors = []
-    for sentence in sentences:
-        padded_sentence = sentence + [0] * (SIZE - len(sentence))
-        padded_vectors.append(padded_sentence)
-    
-    return padded_vectors
+        if current_sentence_label:
+            labels.append(current_sentence_label)
+
+        vectors_sentences = []
+        vectors_labels = []
+        for sentence, label in zip(sentences, labels):
+            sentence = sentence + [0] * (SIZE - len(sentence))
+            label = label + [0] * (SIZE - len(label))
+            vectors_sentences.append(sentence)
+            vectors_labels.append(label)
+
+    return vectors_sentences, vectors_labels
+
+
+
 
 '''
 dans train_corpus : 
