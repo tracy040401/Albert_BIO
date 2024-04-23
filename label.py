@@ -12,12 +12,5 @@ def extract_label(chemin_fichier):
     return liste_etiquettes
 
 def get_vector_from_label(label):
-    vector = []
-    i=0
-    for etiquette in extract_label("atis.train"):
-        if label==etiquette:
-            vector.append("1")
-        else:
-            vector.append("0")
-        i+=1
+    vector = ["1" if label==etiquette else "0" for etiquette in extract_label("atis.train")]
     return vector
