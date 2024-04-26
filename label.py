@@ -1,3 +1,5 @@
+import numpy as np
+
 # Fonction qui renvoie un vecteur contenant toutes les étiquettes possibles
 def extract_label(chemin_fichier):
     liste_etiquettes = []
@@ -12,5 +14,5 @@ def extract_label(chemin_fichier):
     return liste_etiquettes
 
 def get_vector_from_label(label):
-    vector = ["1" if label==etiquette else "0" for etiquette in extract_label("atis.train")]
-    return vector
+    vector = [1 if label==etiquette else 0 for etiquette in extract_label("atis.train")]
+    return np.array(vector)

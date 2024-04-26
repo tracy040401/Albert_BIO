@@ -1,3 +1,5 @@
+import numpy as np
+
 def count_examples_and_max_length(data):
     num_examples = 0
     max_length = 0
@@ -43,17 +45,15 @@ def pad_sentences_from_file(input_file, SIZE):
         if current_sentence_label:
             labels.append(current_sentence_label)
 
-        vectors_sentences = []
-        vectors_labels = []
-        for sentence, label in zip(sentences, labels):
-            sentence = sentence + [0] * (SIZE - len(sentence))
-            label = label + [0] * (SIZE - len(label))
-            vectors_sentences.append(sentence)
-            vectors_labels.append(label)
+        vectors_sentences = np.zeros((len(sentences), SIZE), dtype=np.object_)
+        vectors_labels = np.zeros((len(labels), SIZE), dtype=np.object_)
+        for i, (sentence, label) in enumerate(zip(sentences, labels)):
+            padded_sentence = sentence + ['0'] * (SIZE - len(sentence))
+            padded_label = label + ['0'] * (SIZE - len(label))
+            vectors_sentences[i] = padded_sentence
+            vectors_labels[i] = padded_label
 
     return vectors_sentences, vectors_labels
-
-
 
 
 '''
